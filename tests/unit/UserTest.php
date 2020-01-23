@@ -5,58 +5,57 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
+    private $user;
+
+    protected function setUp(): void
+    {
+        $this->user = new User();
+    }
+
     public function testThatWeCanGetTheFirstName()
     {
-        $user = new User();
+        $this->user->setFirstName('JiHoon');
 
-        $user->setFirstName('JiHoon');
-
-        $this->assertEquals($user->getFirstName(), 'JiHoon');
+        $this->assertEquals($this->user->getFirstName(), 'JiHoon');
     }
 
     public function testThatWeCanGetTheLastName()
     {
-        $user = new User();
+        $this->user->setLastName('Kim');
 
-        $user->setLastName('Kim');
-
-        $this->assertEquals($user->getLastName(), 'Kim');
+        $this->assertEquals($this->user->getLastName(), 'Kim');
     }
 
     public function testFullNameIsReturned()
     {
-        $user = new User();
-        $user->setFirstName('JiHoon');
-        $user->setLastName('Kim');
+        $this->user->setFirstName('JiHoon');
+        $this->user->setLastName('Kim');
 
-        $this->assertEquals($user->getFullName(), 'JiHoon Kim');
+        $this->assertEquals($this->user->getFullName(), 'JiHoon Kim');
     }
 
     public function testFirstAndLastNameAreTrimmed()
     {
-        $user = new User();
-        $user->setFirstName('   JiHoon ');
-        $user->setLastName('Kim ');
+        $this->user->setFirstName('   JiHoon ');
+        $this->user->setLastName('Kim ');
 
-        $this->assertEquals($user->getFullName(), 'JiHoon Kim');
+        $this->assertEquals($this->user->getFullName(), 'JiHoon Kim');
     }
 
     public function testEmailAddressCanBeSet()
     {
-        $user = new User();
-        $user->setEmail('shaul1991@gmail.com');
+        $this->user->setEmail('shaul1991@gmail.com');
 
-        $this->assertEquals($user->getEmail(), 'shaul1991@gmail.com');
+        $this->assertEquals($this->user->getEmail(), 'shaul1991@gmail.com');
     }
 
     public function testEmailVariablesContainCorrectValues()
     {
-        $user = new User();
-        $user->setFirstName('Ji Hoon');
-        $user->setLastName('Kim');
-        $user->setEmail('shaul1991@gmail.com');
+        $this->user->setFirstName('Ji Hoon');
+        $this->user->setLastName('Kim');
+        $this->user->setEmail('shaul1991@gmail.com');
 
-        $emailVariables = $user->getEmailVariables();
+        $emailVariables = $this->user->getEmailVariables();
 
         $this->assertArrayHasKey('full_name', $emailVariables);
         $this->assertArrayHasKey('email', $emailVariables);
