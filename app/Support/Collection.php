@@ -28,4 +28,14 @@ class Collection implements IteratorAggregate
     {
         return new ArrayIterator($this->items);
     }
+
+    public function merge(Collection $collection)
+    {
+        return $this->add($collection->get());
+    }
+
+    public function add(array $item)
+    {
+        $this->items = array_merge($this->items, $item);
+    }
 }
