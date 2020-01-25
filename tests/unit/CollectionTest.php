@@ -72,4 +72,50 @@ class CollectionTest extends TestCase
         $this->assertCount(6, $collection1->get());
         $this->assertEquals(6, $collection1->count());
     }
+
+    /** @test */
+    public function canAddToExistingCollection()
+    {
+        $collection = new Collection(['one', 'two']);
+        $collection->add(['three']);
+
+        $this->assertEquals(3, $collection->count());
+        $this->assertCount(3, $collection->get());
+    }
+
+    /** @test */
+    public function returnedJsonEncodedItems()
+    {
+        $collection = new Collection(
+            [
+                ['username' => 'kim'],
+                ['username' => 'jihoon'],
+            ]
+        );
+
+        $this->assertIsString($collection->toJson());
+        $this->assertEquals(
+            '[{"username":"kim"},{"username":"jihoon"}]',
+            $collection->toJson()
+        );
+    }
+
+    /** @test */
+    public function jsonEncodingACollectionObjectReturnsJson()
+    {
+        $collection = new Collection(
+            [
+                ['username' => 'kim'],
+                ['username' => 'jihoon'],
+            ]
+        );
+
+        $encoded = json_encode($collection);
+
+        $this->assertIsString($encoded);
+        $this->assertEquals(
+            '[{"username":"kim"},{"username":"jihoon"}]',
+            $encoded
+        );
+    }
 }
